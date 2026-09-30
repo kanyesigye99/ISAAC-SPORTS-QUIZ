@@ -1,0 +1,1497 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ISAAC RAMS SPORTS QUIZ - Mr. Safe Hands #99</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #080d29;
+            color: white;
+        }
+
+        .screen {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .card {
+            width: 90%;
+            max-width: 950px;
+            background: #111a40;
+            border-radius: 18px;
+            padding: 45px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.45);
+        }
+
+        .start-card {
+            max-width: 850px;
+            text-align: center;
+        }
+
+        .star {
+            color: #ffd16a;
+            font-size: 45px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin-top: 5px;
+        }
+
+        .main-title {
+            font-family: Georgia, serif;
+            font-size: 38px;
+            margin: 5px 0;
+        }
+
+        .subtitle {
+            color: #ffd16a;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .description {
+            color: #b8c5e8;
+            font-size: 16px;
+            margin: 20px 0 35px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #0c1534;
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus {
+            border: 2px solid #358bff;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .start-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            background: #358bff;
+            color: white;
+            font-size: 16px;
+        }
+
+        .start-btn:hover {
+            background: #775cf0;
+        }
+
+        .rules {
+            color: #b8c5e8;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        .contact {
+            color: #b8c5e8;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+        /* QUIZ */
+
+        .quiz-card {
+            width: 95%;
+            max-width: 1100px;
+            min-height: 90vh;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .question-count {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .score {
+            color: #ffd16a;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .timer {
+            text-align: center;
+            color: #ffd16a;
+            font-size: 40px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .seconds {
+            text-align: center;
+            color: #b8c5e8;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .progress-container {
+            height: 12px;
+            background: #293864;
+            border-radius: 10px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #358bff;
+            transition: width 0.3s;
+        }
+
+        .question {
+            text-align: center;
+            font-family: Georgia, serif;
+            font-size: 27px;
+            margin: 30px auto;
+            max-width: 850px;
+        }
+
+        .answers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .answer-btn {
+            background: #1a2855;
+            color: white;
+            padding: 20px;
+            min-height: 75px;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        .answer-btn:hover:not(:disabled) {
+            background: #33477c;
+        }
+
+        .answer-btn:disabled {
+            cursor: default;
+        }
+
+        .correct {
+            background: #124d48 !important;
+            color: #83edc4 !important;
+        }
+
+        .wrong {
+            background: #63323a !important;
+            color: #ffacb4 !important;
+        }
+
+        .feedback {
+            text-align: center;
+            min-height: 30px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .explanation {
+            text-align: center;
+            color: #b8c5e8;
+            margin: 10px auto;
+            max-width: 800px;
+            line-height: 1.5;
+        }
+
+        .next-btn {
+            display: block;
+            margin: 20px auto 0;
+            background: #358bff;
+            color: white;
+            padding: 13px 25px;
+            font-size: 14px;
+        }
+
+        .next-btn:hover {
+            background: #775cf0;
+        }
+
+        /* RESULT */
+
+        .result-card {
+            text-align: center;
+            max-width: 850px;
+        }
+
+        .final-score {
+            color: #ffd16a;
+            font-size: 55px;
+            font-weight: bold;
+        }
+
+        .total-points {
+            color: #b8c5e8;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 25px 0;
+        }
+
+        .stat-box {
+            background: #1b2854;
+            width: 160px;
+            min-height: 85px;
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .stat-title {
+            color: #b8c5e8;
+            font-size: 12px;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .result-buttons {
+            margin: 25px 0;
+        }
+
+        .restart-btn {
+            background: #358bff;
+            color: white;
+            padding: 12px 20px;
+            margin: 5px;
+        }
+
+        .play-btn {
+            background: #202c5a;
+            color: white;
+            padding: 12px 20px;
+            margin: 5px;
+        }
+
+        .leaderboard {
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .leaderboard h3 {
+            text-align: center;
+        }
+
+        .leaderboard-list {
+            background: #0c1534;
+            padding: 15px;
+            border-radius: 8px;
+            color: #b8c5e8;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 700px) {
+
+            .card {
+                padding: 25px;
+                width: 95%;
+            }
+
+            .answers {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .quiz-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .question {
+                font-size: 22px;
+            }
+
+            .main-title {
+                font-size: 28px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     START SCREEN
+====================================================== -->
+
+<section id="startScreen" class="screen">
+
+    <div class="card start-card">
+
+        <div class="star">✦</div>
+
+        <h1 class="main-title">
+            MR. SAFE HANDS #99
+        </h1>
+
+        <div class="subtitle">
+            UGANDAN SPORTS QUIZ
+        </div>
+
+        <p class="description">
+            Let's step into the World of Ugandan Sport!
+        </p>
+
+        <label for="playerName">
+            Player name
+        </label>
+
+        <input
+            type="text"
+            id="playerName"
+            placeholder="Enter your name"
+        >
+
+        <button
+            class="start-btn"
+            onclick="startQuiz()"
+        >
+            START QUIZ →
+        </button>
+
+        <div class="rules">
+            20 questions • 15 seconds per question •
+            10 points per correct answer
+        </div>
+
+        <div class="contact">
+            WhatsApp: 0784746534 / 0747902076 / 0795124463
+            <br>
+            KANYESIGYE ISAAC RAMS99
+            <br>
+            isaackanyesigye14@gmail.com
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     QUIZ SCREEN
+====================================================== -->
+
+<section id="quizScreen" class="screen hidden">
+
+    <div class="card quiz-card">
+
+        <div class="quiz-header">
+
+            <div
+                id="questionCount"
+                class="question-count"
+            >
+                Question 1 of 20
+            </div>
+
+            <div
+                id="score"
+                class="score"
+            >
+                SCORE: 0 / 200
+            </div>
+
+        </div>
+
+
+        <div
+            id="timer"
+            class="timer"
+        >
+            15
+        </div>
+
+        <div class="seconds">
+            SECONDS
+        </div>
+
+
+        <div class="progress-container">
+
+            <div
+                id="progressBar"
+                class="progress-bar"
+            ></div>
+
+        </div>
+
+
+        <div
+            id="question"
+            class="question"
+        >
+        </div>
+
+
+        <div
+            id="answers"
+            class="answers"
+        >
+        </div>
+
+
+        <div
+            id="feedback"
+            class="feedback"
+        >
+        </div>
+
+
+        <div
+            id="explanation"
+            class="explanation"
+        >
+        </div>
+
+
+        <button
+            id="nextButton"
+            class="next-btn hidden"
+            onclick="nextQuestion()"
+        >
+            NEXT QUESTION →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     RESULT SCREEN
+====================================================== -->
+
+<section id="resultScreen" class="screen hidden">
+
+    <div class="card result-card">
+
+        <div class="star">✦</div>
+
+        <h1>
+            THE FINAL VERDICT
+        </h1>
+
+        <p id="resultPlayer">
+        </p>
+
+
+        <div
+            id="finalScore"
+            class="final-score"
+        >
+            0
+        </div>
+
+        <div class="total-points">
+            TOTAL POINTS
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat-box">
+
+                <div class="stat-title">
+                    Correct
+                </div>
+
+                <div
+                    id="correctResult"
+                    class="stat-value"
+                >
+                    0 / 20
+                </div>
+
+            </div>
+
+
+            <div class="stat-box">
+
+                <div class="stat-title">
+                    Percentage
+                </div>
+
+                <div
+                    id="percentageResult"
+                    class="stat-value"
+                >
+                    0%
+                </div>
+
+            </div>
+
+
+            <div class="stat-box">
+
+                <div class="stat-title">
+                    Grade
+                </div>
+
+                <div
+                    id="gradeResult"
+                    class="stat-value"
+                >
+                    -
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="result-buttons">
+
+            <button
+                class="restart-btn"
+                onclick="restartQuiz()"
+            >
+                RESTART QUIZ
+            </button>
+
+            <button
+                class="play-btn"
+                onclick="restartQuiz()"
+            >
+                PLAY AGAIN
+            </button>
+
+        </div>
+
+
+        <div class="leaderboard">
+
+            <h3>
+                ✦ TOP 10 SCORES
+            </h3>
+
+            <div
+                id="leaderboardList"
+                class="leaderboard-list"
+            >
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* ==========================================================
+   1. QUIZ QUESTIONS
+========================================================== */
+
+const questions = [
+
+    {
+        question: "What is the nickname of Uganda's men's national team?",
+        options: [
+            "The Buffaloes",
+            "The Lions",
+            "The Leopards",
+            "The Cranes"
+        ],
+        correct: "D",
+        explanation:
+            "Uganda's men's national football team is commonly known as the Uganda Cranes."
+    },
+
+    {
+        question: "What does FUFA stand for in Ugandan football?",
+        options: [
+            "Federation of United Football Associations",
+            "Football Association of Uganda Federations",
+            "Football Union of Federation Associations",
+            "Federation of Uganda Football Associations"
+        ],
+        correct: "D",
+        explanation:
+            "FUFA stands for Federation of Uganda Football Associations."
+    },
+
+    {
+        question: "Which city is the home of Vipers SC?",
+        options: [
+            "Jinja",
+            "Kitende",
+            "Masaka",
+            "Gulu"
+        ],
+        correct: "B",
+        explanation:
+            "Vipers SC is based in Kitende, Wakiso District."
+    },
+
+    {
+        question: "Which school hosted the 2023 Ball Games 2 Championship?",
+        options: [
+            "Ngora High School",
+            "Bukedea Comprehensive School",
+            "St. Mary's College Rushoroza",
+            "Immaculate Heart Girls School Nyakibaale"
+        ],
+        correct: "C",
+        explanation:
+            "St. Mary's College Rushoroza hosted the 2023 Ball Games 2 Championship."
+    },
+
+    {
+        question: "What medal did the Crested Cranes secure at the 2025 CECAFA Senior Women's Championship?",
+        options: [
+            "Gold",
+            "Silver",
+            "Bronze",
+            "No Medal"
+        ],
+        correct: "C",
+        explanation:
+            "The Crested Cranes secured a bronze medal."
+    },
+
+    {
+        question: "In which year did Uganda return to the Women's Africa Cup of Nations after a 22-year absence?",
+        options: [
+            "2020",
+            "2022",
+            "2024",
+            "2018"
+        ],
+        correct: "B",
+        explanation:
+            "Uganda returned to the Women's Africa Cup of Nations in 2022."
+    },
+
+    {
+        question: "Which team did Uganda defeat on penalties to qualify for the 2022 Women's AFCON?",
+        options: [
+            "Rwanda",
+            "Ethiopia",
+            "Kenya",
+            "Tanzania"
+        ],
+        correct: "B",
+        explanation:
+            "Uganda defeated Ethiopia on penalties after the two legs finished level on aggregate."
+    },
+
+    {
+        question: "Which Ugandan goalkeeper was named the best goalkeeper at the 2018 CECAFA Women's Championship?",
+        options: [
+            "Ruth Aturo",
+            "Daisy Nakaziro",
+            "Juliet Adeke",
+            "Irene Akiteng"
+        ],
+        correct: "A",
+        explanation:
+            "Ruth Aturo was named the tournament's best goalkeeper."
+    },
+
+    {
+        question: "Who scored Uganda's winning penalty against Zambia in the 2018 COSAFA Women's Championship third-place playoff?",
+        options: [
+            "Juliet Nalukenge",
+            "Fazila Ikwaput",
+            "Tracy Jones Akiror",
+            "Shadia Nankya"
+        ],
+        correct: "C",
+        explanation:
+            "Tracy Jones Akiror scored Uganda's winning penalty in the shootout."
+    },
+
+    {
+        question: "Who became the first Ugandan woman to sign for a French top-flight women's club?",
+        options: [
+            "Sandra Nabweteme",
+            "Shadia Nankya",
+            "Phiona Nabulime",
+            "Fauzia Najjemba"
+        ],
+        correct: "B",
+        explanation:
+            "Shadia Nankya became the first Ugandan woman to sign for a French top-flight club."
+    },
+
+    {
+        question: "Which French club did Shadia Nankya join in 2026?",
+        options: [
+            "Paris Saint-Germain Women",
+            "Paris FC",
+            "Le Havre AC Women",
+            "Olympique Lyonnais"
+        ],
+        correct: "C",
+        explanation:
+            "Shadia Nankya joined Le Havre AC Women."
+    },
+
+    {
+        question: "Which Ugandan club won the inaugural FUFA Women's Cup in 2017?",
+        options: [
+            "Olila High School WFC",
+            "Makerere University WFC",
+            "She Corporate FC",
+            "UCU Lady Cardinals"
+        ],
+        correct: "A",
+        explanation:
+            "Olila High School WFC won the inaugural FUFA Women's Cup in 2017."
+    },
+
+    {
+        question: "What is another name associated with St. Noa Girls GFC?",
+        options: [
+            "Kasasiro Women",
+            "The Female Jogoos",
+            "She Cranes",
+            "The Venoms"
+        ],
+        correct: "B",
+        explanation:
+            "St. Noa Girls GFC is associated with SC Villa, popularly known as the Jogoos."
+    },
+
+    {
+        question: "Which shirt number does Marion Serenge from St. Noa Girls wear?",
+        options: [
+            "13",
+            "7",
+            "23",
+            "10"
+        ],
+        correct: "D",
+        explanation:
+            "Marion Serenge wears shirt number 10."
+    },
+
+    {
+        question: "Where was the 2022 CECAFA Senior Women's Championship final between Uganda and Burundi played?",
+        options: [
+            "MTN Omondi Stadium",
+            "FUFA Technical Centre Njeru",
+            "FUFA Stadium Kadiba",
+            "Mandela National Stadium"
+        ],
+        correct: "B",
+        explanation:
+            "The final was played at the FUFA Technical Centre in Njeru."
+    },
+
+    {
+        question: "Which school became the first in Uganda to win both the boys' and girls' CAF Africa Schools Football Championship national qualifiers in the same 2026 edition?",
+        options: [
+            "St. Noa Girls School",
+            "Kawempe Muslim SS",
+            "Amus College School",
+            "Buddo SS"
+        ],
+        correct: "C",
+        explanation:
+            "Amus College School won both the boys' and girls' national qualifier titles in 2026."
+    },
+
+    {
+        question: "Which school won the 2026 USSSA Elite Games football boys' competition?",
+        options: [
+            "Mentor SS",
+            "Uganda Martyrs High School Lubaga",
+            "Bukedea Comprehensive School",
+            "St. Mary's Kitende"
+        ],
+        correct: "C",
+        explanation:
+            "Bukedea Comprehensive School won the boys' football competition."
+    },
+
+    {
+        question: "Which school won the 2026 Elite Games girls' championship?",
+        options: [
+            "Sheema Girls School",
+            "Amus College School",
+            "Kawempe Muslim School",
+            "St. Noa Girls School"
+        ],
+        correct: "D",
+        explanation:
+            "St. Noa Girls School won the championship."
+    },
+
+    {
+        question: "Which school won the 2026 USSSA U-20 girls' football competition?",
+        options: [
+            "Bonconcilli Girls School",
+            "Rines SS",
+            "St. Noa Girls School",
+            "Amus College School"
+        ],
+        correct: "B",
+        explanation:
+            "Rines SS won the final 3-0 against Bonconcilli Girls."
+    },
+
+    {
+        question: "Which school hosted the first-ever beach games under the USSSA Championships?",
+        options: [
+            "St. Mary's College Rushoroza",
+            "Teso College Aloet",
+            "Sacred Heart SS Gulu",
+            "St. Mary's Kitende"
+        ],
+        correct: "A",
+        explanation:
+            "St. Mary's College Rushoroza hosted the first beach games under the USSSA Championships."
+    }
+
+];
+
+
+/* ==========================================================
+   2. GAME VARIABLES
+========================================================== */
+
+let playerName = "";
+
+let questionIndex = 0;
+
+let score = 0;
+
+let correctCount = 0;
+
+let remaining = 15;
+
+let timer = null;
+
+let locked = false;
+
+
+/* ==========================================================
+   3. START QUIZ
+========================================================== */
+
+function startQuiz() {
+
+    playerName =
+        document.getElementById("playerName").value.trim();
+
+    if (playerName === "") {
+
+        alert("Please enter your name first.");
+
+        return;
+    }
+
+    questionIndex = 0;
+
+    score = 0;
+
+    correctCount = 0;
+
+    locked = false;
+
+    showScreen("quizScreen");
+
+    loadQuestion();
+}
+
+
+/* ==========================================================
+   4. SHOW SCREEN
+========================================================== */
+
+function showScreen(screenId) {
+
+    document
+        .getElementById("startScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("quizScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("resultScreen")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById(screenId)
+        .classList.remove("hidden");
+}
+
+
+/* ==========================================================
+   5. LOAD QUESTION
+========================================================== */
+
+function loadQuestion() {
+
+    clearInterval(timer);
+
+    locked = false;
+
+    remaining = 15;
+
+    const item =
+        questions[questionIndex];
+
+
+    document.getElementById("questionCount").innerText =
+        "Question " +
+        (questionIndex + 1) +
+        " of " +
+        questions.length;
+
+
+    document.getElementById("score").innerText =
+        "SCORE: " +
+        score +
+        " / " +
+        (questions.length * 10);
+
+
+    document.getElementById("question").innerText =
+        item.question;
+
+
+    document.getElementById("feedback").innerText =
+        "";
+
+
+    document.getElementById("explanation").innerText =
+        "";
+
+
+    document
+        .getElementById("nextButton")
+        .classList.add("hidden");
+
+
+    const answers =
+        document.getElementById("answers");
+
+
+    answers.innerHTML = "";
+
+
+    item.options.forEach(function(option, index) {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "answer-btn";
+
+        button.innerText =
+            String.fromCharCode(65 + index) +
+            ". " +
+            option;
+
+
+        button.onclick = function() {
+
+            selectAnswer(index);
+
+        };
+
+
+        answers.appendChild(button);
+
+    });
+
+
+    updateProgress();
+
+    updateTimer();
+
+    timer = setInterval(countdown, 1000);
+}
+
+
+/* ==========================================================
+   6. UPDATE PROGRESS
+========================================================== */
+
+function updateProgress() {
+
+    const percentage =
+        (questionIndex / questions.length) * 100;
+
+    document.getElementById("progressBar").style.width =
+        percentage + "%";
+}
+
+
+/* ==========================================================
+   7. TIMER
+========================================================== */
+
+function countdown() {
+
+    if (locked) {
+        return;
+    }
+
+    remaining--;
+
+    updateTimer();
+
+    if (remaining <= 0) {
+
+        clearInterval(timer);
+
+        finishQuestion(null);
+    }
+}
+
+
+function updateTimer() {
+
+    const timerElement =
+        document.getElementById("timer");
+
+    timerElement.innerText =
+        remaining;
+
+
+    if (remaining <= 5) {
+
+        timerElement.style.color =
+            "#ff727f";
+
+    } else {
+
+        timerElement.style.color =
+            "#ffd16a";
+    }
+}
+
+
+/* ==========================================================
+   8. SELECT ANSWER
+========================================================== */
+
+function selectAnswer(index) {
+
+    if (locked) {
+        return;
+    }
+
+    const answer =
+        String.fromCharCode(65 + index);
+
+    finishQuestion(answer);
+}
+
+
+/* ==========================================================
+   9. FINISH QUESTION
+========================================================== */
+
+function finishQuestion(choice) {
+
+    if (locked) {
+        return;
+    }
+
+    locked = true;
+
+    clearInterval(timer);
+
+
+    const item =
+        questions[questionIndex];
+
+
+    const correctAnswer =
+        item.correct;
+
+
+    const buttons =
+        document.querySelectorAll(".answer-btn");
+
+
+    buttons.forEach(function(button, index) {
+
+        button.disabled = true;
+
+
+        const letter =
+            String.fromCharCode(65 + index);
+
+
+        if (letter === correctAnswer) {
+
+            button.classList.add("correct");
+        }
+
+
+        if (
+            choice !== null &&
+            letter === choice &&
+            choice !== correctAnswer
+        ) {
+
+            button.classList.add("wrong");
+        }
+
+    });
+
+
+    if (choice === correctAnswer) {
+
+        score += 10;
+
+        correctCount++;
+
+        document.getElementById("feedback").innerText =
+            "✓ CORRECT! +10 POINTS";
+
+        document.getElementById("feedback").style.color =
+            "#83edc4";
+
+    }
+
+    else if (choice === null) {
+
+        document.getElementById("feedback").innerText =
+            "TIME'S UP! +0 POINTS";
+
+        document.getElementById("feedback").style.color =
+            "#ffacb4";
+
+    }
+
+    else {
+
+        document.getElementById("feedback").innerText =
+            "✗ NOT QUITE. +0 POINTS";
+
+        document.getElementById("feedback").style.color =
+            "#ffacb4";
+    }
+
+
+    document.getElementById("score").innerText =
+        "SCORE: " +
+        score +
+        " / " +
+        (questions.length * 10);
+
+
+    document.getElementById("explanation").innerText =
+        item.explanation;
+
+
+    const nextButton =
+        document.getElementById("nextButton");
+
+
+    nextButton.classList.remove("hidden");
+
+
+    if (questionIndex === questions.length - 1) {
+
+        nextButton.innerText =
+            "SEE FINAL RESULTS →";
+
+    } else {
+
+        nextButton.innerText =
+            "NEXT QUESTION →";
+    }
+}
+
+
+/* ==========================================================
+   10. NEXT QUESTION
+========================================================== */
+
+function nextQuestion() {
+
+    questionIndex++;
+
+    if (questionIndex < questions.length) {
+
+        loadQuestion();
+
+    } else {
+
+        finishQuiz();
+    }
+}
+
+
+/* ==========================================================
+   11. FINISH QUIZ
+========================================================== */
+
+function finishQuiz() {
+
+    clearInterval(timer);
+
+    showScreen("resultScreen");
+
+
+    const totalQuestions =
+        questions.length;
+
+
+    const percentage =
+        Math.round(
+            (correctCount / totalQuestions) * 100
+        );
+
+
+    const grade =
+        getGrade(percentage);
+
+
+    document.getElementById("resultPlayer").innerText =
+        "Player: " + playerName;
+
+
+    document.getElementById("finalScore").innerText =
+        score + " / " + (totalQuestions * 10);
+
+
+    document.getElementById("correctResult").innerText =
+        correctCount + " / " + totalQuestions;
+
+
+    document.getElementById("percentageResult").innerText =
+        percentage + "%";
+
+
+    document.getElementById("gradeResult").innerText =
+        grade;
+
+
+    saveScore();
+
+    displayLeaderboard();
+}
+
+
+/* ==========================================================
+   12. GRADING
+========================================================== */
+
+function getGrade(percentage) {
+
+    if (percentage >= 80) {
+
+        return "First Class";
+
+    }
+
+    else if (percentage >= 70) {
+
+        return "Second Class Upper";
+
+    }
+
+    else if (percentage >= 60) {
+
+        return "Second Class Lower";
+
+    }
+
+    else if (percentage >= 50) {
+
+        return "Pass";
+
+    }
+
+    else {
+
+        return "Fail";
+    }
+}
+
+
+/* ==========================================================
+   13. SAVE SCORE
+========================================================== */
+
+function saveScore() {
+
+    const scores =
+        JSON.parse(
+            localStorage.getItem("isaacQuizScores") || "[]"
+        );
+
+
+    scores.push({
+
+        name: playerName,
+
+        score: score,
+
+        correct: correctCount,
+
+        date: new Date().toLocaleString()
+
+    });
+
+
+    scores.sort(function(a, b) {
+
+        return b.score - a.score;
+
+    });
+
+
+    const topTen =
+        scores.slice(0, 10);
+
+
+    localStorage.setItem(
+        "isaacQuizScores",
+        JSON.stringify(topTen)
+    );
+}
+
+
+/* ==========================================================
+   14. DISPLAY LEADERBOARD
+========================================================== */
+
+function displayLeaderboard() {
+
+    const scores =
+        JSON.parse(
+            localStorage.getItem("isaacQuizScores") || "[]"
+        );
+
+
+    const leaderboard =
+        document.getElementById("leaderboardList");
+
+
+    if (scores.length === 0) {
+
+        leaderboard.innerHTML =
+            "No scores yet.";
+
+        return;
+    }
+
+
+    leaderboard.innerHTML = "";
+
+
+    scores.forEach(function(item, index) {
+
+        const row =
+            document.createElement("div");
+
+
+        row.style.padding = "6px 0";
+
+
+        row.innerText =
+            (index + 1) +
+            ". " +
+            item.name +
+            " — " +
+            item.score +
+            " points";
+
+
+        leaderboard.appendChild(row);
+
+    });
+}
+
+
+/* ==========================================================
+   15. RESTART
+========================================================== */
+
+function restartQuiz() {
+
+    clearInterval(timer);
+
+    questionIndex = 0;
+
+    score = 0;
+
+    correctCount = 0;
+
+    locked = false;
+
+    showScreen("startScreen");
+
+    document.getElementById("playerName").value =
+        playerName;
+}
+
+</script>
+
+</body>
+</html>
+```
